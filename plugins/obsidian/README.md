@@ -42,6 +42,13 @@ This is a starter bundle. It defines the plugin surface and bundled skill layout
 - if Obsidian is not already open, the first CLI command is expected to launch it
 - follow-up implementation should detect CLI availability and provide a clear fallback when launch fails
 
+## Usage Examples
+
+- "Capture this conversation as a new Obsidian note named `Plugin Example Note`."
+- "Append a follow-up checklist to `Plugin Example Note.md`."
+- "Research `zettelkasten` across my vault and summarize the most relevant notes."
+- "Show me the backlinks for `Plugin Example Note`."
+
 ## Implementation Docs
 
 - `docs/cli-mapping.md`: workflow-to-command mapping for the official Obsidian CLI
@@ -53,3 +60,9 @@ This is a starter bundle. It defines the plugin surface and bundled skill layout
 ## Local Runner
 
 - `scripts/obsidian-cli-runner.sh` provides a small execution wrapper for the bundled CLI workflows
+- direct CLI and runner commands are implementation details; end users should interact through natural-language requests
+
+## Assets
+
+- `assets/` now contains simple custom purple gem-style SVG assets for the manifest icon and logo
+- replace them with more polished visuals later if you want a stronger published presentation

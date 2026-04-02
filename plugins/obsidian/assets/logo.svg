@@ -1,0 +1,24 @@
+<svg width="700" height="240" viewBox="0 0 700 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="700" height="240" rx="40" fill="url(#bg)"/>
+  <g transform="translate(36 24)">
+    <rect width="192" height="192" rx="40" fill="#1E1B4B" fill-opacity="0.32"/>
+    <path d="M96 22L150 74L128 150H64L42 74L96 22Z" fill="url(#gem)" stroke="#F3E8FF" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M96 22V150" stroke="#F5F3FF" stroke-width="6" stroke-linecap="round"/>
+    <path d="M42 74H150" stroke="#F5F3FF" stroke-width="6" stroke-linecap="round"/>
+    <path d="M64 150L96 74L128 150" stroke="#DDD6FE" stroke-width="6" stroke-linejoin="round"/>
+    <circle cx="138" cy="52" r="8" fill="#F5F3FF" fill-opacity="0.9"/>
+  </g>
+  <text x="258" y="108" fill="#FAF5FF" font-family="Avenir, Inter, sans-serif" font-size="44" font-weight="700">Obsidian</text>
+  <text x="258" y="148" fill="#DDD6FE" font-family="Avenir, Inter, sans-serif" font-size="22" font-weight="500">Custom Codex Plugin</text>
+  <text x="258" y="182" fill="#C4B5FD" font-family="Avenir, Inter, sans-serif" font-size="18">CLI workflows for notes, research, and backlinks</text>
+  <defs>
+    <linearGradient id="bg" x1="28" y1="16" x2="672" y2="224" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#312E81"/>
+      <stop offset="1" stop-color="#7C3AED"/>
+    </linearGradient>
+    <linearGradient id="gem" x1="96" y1="22" x2="96" y2="150" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#C084FC"/>
+      <stop offset="1" stop-color="#6D28D9"/>
+    </linearGradient>
+  </defs>
+</svg>

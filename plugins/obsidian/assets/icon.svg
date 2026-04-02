@@ -1,0 +1,18 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="256" height="256" rx="64" fill="url(#bg)"/>
+  <path d="M128 38L188 96L164 180H92L68 96L128 38Z" fill="url(#gem)" stroke="#F3E8FF" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M128 38V180" stroke="#F5F3FF" stroke-width="8" stroke-linecap="round"/>
+  <path d="M68 96H188" stroke="#F5F3FF" stroke-width="8" stroke-linecap="round"/>
+  <path d="M92 180L128 96L164 180" stroke="#DDD6FE" stroke-width="8" stroke-linejoin="round"/>
+  <circle cx="176" cy="72" r="10" fill="#F5F3FF" fill-opacity="0.9"/>
+  <defs>
+    <linearGradient id="bg" x1="24" y1="20" x2="220" y2="236" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2E1065"/>
+      <stop offset="1" stop-color="#7C3AED"/>
+    </linearGradient>
+    <linearGradient id="gem" x1="128" y1="38" x2="128" y2="180" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#C084FC"/>
+      <stop offset="1" stop-color="#6D28D9"/>
+    </linearGradient>
+  </defs>
+</svg>
