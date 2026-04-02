@@ -1,0 +1,47 @@
+{
+  "name": "obsidian",
+  "version": "0.1.0",
+  "description": "Bundled Codex workflows for Obsidian knowledge management.",
+  "author": {
+    "name": "dev-minsoo",
+    "email": "minsoo010@naver.com"
+  },
+  "homepage": "https://obsidian.md/",
+  "repository": "https://github.com/dev-minsoo/codex-plugins",
+  "license": "MIT",
+  "keywords": [
+    "obsidian",
+    "notes",
+    "knowledge-base",
+    "backlinks",
+    "zettelkasten",
+    "cli"
+  ],
+  "skills": "./skills/",
+  "hooks": "./hooks.json",
+  "interface": {
+    "displayName": "Obsidian",
+    "shortDescription": "Bundled workflows for working with an Obsidian vault via CLI.",
+    "longDescription": "A bundled Obsidian plugin for capturing notes, researching across a vault, and curating links between notes using the official Obsidian CLI.",
+    "developerName": "dev-minsoo",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Write",
+      "Search"
+    ],
+    "defaultPrompt": [
+      "Capture this conversation as a clean Obsidian note.",
+      "Research this topic across my vault and summarize it.",
+      "Suggest backlinks and related notes for this draft."
+    ],
+    "brandColor": "#7C3AED",
+    "composerIcon": "./assets/icon.png",
+    "logo": "./assets/logo.png",
+    "screenshots": [
+      "./assets/screenshot1.png",
+      "./assets/screenshot2.png",
+      "./assets/screenshot3.png"
+    ]
+  }
+}

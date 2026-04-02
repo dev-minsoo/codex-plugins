@@ -1,0 +1,45 @@
+{
+  "hooks": {
+    "preflight": {
+      "description": "Verify the Obsidian CLI is available and the target vault can be resolved before any workflow runs.",
+      "checks": [
+        "run `obsidian version` before workflow execution",
+        "retry once if the first readiness check fails because Obsidian may still be launching",
+        "if the second check fails, instruct the user to open Obsidian and verify CLI registration",
+        "require explicit `vault=<name>` or `vault=<id>` when the current working directory is not an Obsidian vault"
+      ]
+    },
+    "before_write": {
+      "description": "Validate note writes before creating or modifying Markdown files through the Obsidian CLI.",
+      "checks": [
+        "confirm whether the target is a new note, an existing note, or the daily note",
+        "prefer exact `path=<path>` targeting when a note name could be ambiguous",
+        "validate that generated content is already clean Obsidian Markdown before calling `create`, `append`, or `prepend`",
+        "prefer `property:set` for structured metadata when supported, otherwise embed frontmatter in the content body"
+      ]
+    },
+    "after_write": {
+      "description": "Perform a lightweight verification pass after a write operation completes.",
+      "checks": [
+        "re-read the target note when possible to confirm the write landed",
+        "confirm that important properties or frontmatter fields are present",
+        "flag suspicious outcomes such as an empty note, duplicated heading, or missing related-note section"
+      ]
+    },
+    "guard_destructive": {
+      "description": "Prevent destructive or high-risk file operations from running silently.",
+      "protected_commands": [
+        "obsidian delete",
+        "obsidian move",
+        "obsidian rename",
+        "obsidian property:remove",
+        "obsidian history:restore"
+      ],
+      "policy": [
+        "do not execute destructive commands automatically during note capture, research, or backlink workflows",
+        "require explicit user confirmation before any destructive file or property mutation",
+        "prefer additive edits such as `append`, `prepend`, and `property:set` over destructive rewrites"
+      ]
+    }
+  }
+}
