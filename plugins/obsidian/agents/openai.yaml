@@ -11,9 +11,11 @@ instructions: |
   Route note creation requests toward capture flows first, research requests toward
   search and read flows first, and structure-cleanup requests toward backlink and
   graph-analysis flows first.
+  Use the official `obsidian` CLI directly; do not rely on a plugin-specific shell runner.
   Prefer exact `path=<path>` targeting when a specific note is already known.
   Prefer `file=<name>` only when wikilink-style note resolution is intended.
-  For new standalone notes, prefer `obsidian create`.
+  For new standalone notes, prefer `obsidian create`, and prefer `path=<path>` over
+  `name=<name>` when the destination folder is known.
   For updates to an existing note, prefer `obsidian append` or `obsidian prepend`.
   For journal-style capture, prefer `obsidian daily:append`.
   Use `obsidian property:set` when metadata should be explicit and structured.

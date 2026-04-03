@@ -29,3 +29,5 @@ Use this skill when the task is to investigate a topic using existing Obsidian n
 - favor note-to-note relationships over isolated excerpts
 - treat note titles, tags, and links as first-class signals
 - separate confirmed findings from inferred connections
+- prefer exact `path=<path>` reads when note identity is already known
+- use raw `obsidian` CLI commands directly rather than a plugin-specific wrapper

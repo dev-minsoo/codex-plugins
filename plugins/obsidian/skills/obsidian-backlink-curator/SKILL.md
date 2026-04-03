@@ -30,3 +30,4 @@ Use this skill when improving how notes connect to each other.
 - prefer high-confidence link suggestions over exhaustive link spam
 - recommend index or hub notes when a topic spans many pages
 - call out ambiguous link targets instead of guessing
+- prefer exact `path=<path>` targeting before running `obsidian backlinks` or `obsidian links`

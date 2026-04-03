@@ -68,7 +68,15 @@ status: "<seed|draft|evergreen>"
 - suggest `[[wikilinks]]` only when the target is known or strongly implied
 - keep action items as Markdown tasks such as `- [ ] follow up`
 - if the input mixes several topics, split them into a primary note plus follow-up note suggestions
-- when execution is available, emit output that can be written through the Obsidian CLI without extra cleanup
+- when execution is available, emit output that can be written through the raw Obsidian CLI without extra cleanup
+
+## Execution Guidance
+
+- prefer `obsidian create path="<path>.md" content="<markdown body>"` when the destination folder or exact note path is known
+- prefer `obsidian create name="<note name>" content="<markdown body>"` only for simple standalone notes without an exact folder target
+- use `obsidian append path="<path>.md" content="<markdown block>"` or `obsidian prepend ...` for additive updates
+- use `obsidian daily:append content="<markdown block>"` for journal-style capture
+- use `obsidian property:set` only when structured metadata is clearer than frontmatter
 
 ## Default Behavior
 
