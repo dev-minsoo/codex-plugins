@@ -28,19 +28,51 @@ This plugin bundles Obsidian-focused Codex workflows under `plugins/obsidian`.
 - `hooks.json`
 - `agents/`
 - `docs/`
-- `scripts/`
 - `skills/`
 - `assets/`
 
 ## Notes
 
-This is a starter bundle. It defines the plugin surface and bundled skill layout first, then leaves concrete CLI execution wiring to the next implementation step.
+This is a starter bundle. It keeps the main value in prompts, skills, and policy documents instead of a custom execution wrapper.
 
 ## CLI Requirement
 
 - this plugin is designed around the official Obsidian CLI
-- if Obsidian is not already open, the first CLI command is expected to launch it
-- follow-up implementation should detect CLI availability and provide a clear fallback when launch fails
+- in this environment, raw CLI commands succeeded when Obsidian was already running
+- after a full app quit, `obsidian version` and `obsidian create` both failed until the app was opened again
+- workflows should check CLI availability and provide a clear fallback when launch fails
+
+Official docs:
+- https://obsidian.md/help/cli
+
+## Verified CLI Examples
+
+These commands were executed successfully against the current vault during plugin validation unless noted otherwise.
+
+```bash
+obsidian version
+obsidian daily:path
+obsidian create path="Codex Plugin Tests/CLI Direct Test Target.md" content="# CLI Direct Test Target\n\n- target note for backlink testing" overwrite
+obsidian create path="Codex Plugin Tests/CLI Direct Test Source.md" content="# CLI Direct Test Source\n\nThis note links to [[CLI Direct Test Target]].\n\n- created for direct CLI validation" overwrite
+obsidian read path="Codex Plugin Tests/CLI Direct Test Target.md"
+obsidian append path="Codex Plugin Tests/CLI Direct Test Target.md" content="\n- appended line from direct CLI test"
+obsidian search query="CLI Direct Test"
+obsidian backlinks path="Codex Plugin Tests/CLI Direct Test Target.md" counts format=json
+obsidian links path="Codex Plugin Tests/CLI Direct Test Source.md"
+obsidian property:set path="Codex Plugin Tests/CLI Direct Test Target.md" name=status value=verified type=text
+obsidian property:read path="Codex Plugin Tests/CLI Direct Test Target.md" name=status
+obsidian daily:append content="- [ ] direct CLI validation" inline
+obsidian unresolved total
+obsidian orphans total
+```
+
+Observed full-quit behavior:
+
+```bash
+osascript -e 'tell application "Obsidian" to quit'
+obsidian version
+# -> The CLI is unable to find Obsidian. Please make sure Obsidian is running and try again.
+```
 
 ## Usage Examples
 
@@ -57,10 +89,11 @@ This is a starter bundle. It defines the plugin surface and bundled skill layout
 
 - `hooks.json` defines the starter execution guardrails for CLI readiness, safe writes, post-write verification, and destructive-command protection
 
-## Local Runner
+## Execution Model
 
-- `scripts/obsidian-cli-runner.sh` provides a small execution wrapper for the bundled CLI workflows
-- direct CLI and runner commands are implementation details; end users should interact through natural-language requests
+- use the official `obsidian` CLI directly instead of a plugin-specific shell runner
+- keep command selection logic in skills, agents, and docs so the plugin can evolve with upstream CLI changes
+- end users should still interact through natural-language requests, but the underlying execution surface is the raw CLI
 
 ## Assets
 

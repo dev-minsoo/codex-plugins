@@ -28,19 +28,51 @@
 - `hooks.json`
 - `agents/`
 - `docs/`
-- `scripts/`
 - `skills/`
 - `assets/`
 
 ## 메모
 
-이 플러그인은 starter bundle이다. 플러그인 표면과 번들형 skill 구조를 먼저 정의하고, 구체적인 CLI 실행 wiring은 다음 단계 구현으로 남겨 둔다.
+이 플러그인은 starter bundle이다. 핵심 가치는 커스텀 실행 래퍼보다 프롬프트, 스킬, 정책 문서에 둔다.
 
 ## CLI 요구사항
 
 - 이 플러그인은 공식 Obsidian CLI를 기준으로 설계됐다
-- Obsidian이 열려 있지 않으면 첫 CLI 명령이 앱 실행을 유도할 수 있다
-- 후속 구현에서는 CLI 사용 가능 여부를 감지하고, 실행 실패 시 분명한 fallback 메시지를 제공해야 한다
+- 현재 환경에서는 Obsidian이 이미 실행 중일 때 raw CLI 명령이 정상 동작했다
+- 앱을 완전히 종료한 뒤에는 `obsidian version`, `obsidian create` 모두 앱을 다시 열기 전까지 실패했다
+- 워크플로는 CLI 사용 가능 여부를 확인하고, 실행 실패 시 분명한 fallback 메시지를 제공해야 한다
+
+공식 문서:
+- https://obsidian.md/help/cli
+
+## 검증된 CLI 예시
+
+아래 명령은 별도 표기가 없는 한 현재 vault 기준으로 실제 실행에 성공했다.
+
+```bash
+obsidian version
+obsidian daily:path
+obsidian create path="Codex Plugin Tests/CLI Direct Test Target.md" content="# CLI Direct Test Target\n\n- target note for backlink testing" overwrite
+obsidian create path="Codex Plugin Tests/CLI Direct Test Source.md" content="# CLI Direct Test Source\n\nThis note links to [[CLI Direct Test Target]].\n\n- created for direct CLI validation" overwrite
+obsidian read path="Codex Plugin Tests/CLI Direct Test Target.md"
+obsidian append path="Codex Plugin Tests/CLI Direct Test Target.md" content="\n- appended line from direct CLI test"
+obsidian search query="CLI Direct Test"
+obsidian backlinks path="Codex Plugin Tests/CLI Direct Test Target.md" counts format=json
+obsidian links path="Codex Plugin Tests/CLI Direct Test Source.md"
+obsidian property:set path="Codex Plugin Tests/CLI Direct Test Target.md" name=status value=verified type=text
+obsidian property:read path="Codex Plugin Tests/CLI Direct Test Target.md" name=status
+obsidian daily:append content="- [ ] direct CLI validation" inline
+obsidian unresolved total
+obsidian orphans total
+```
+
+완전 종료 시 관찰된 동작:
+
+```bash
+osascript -e 'tell application "Obsidian" to quit'
+obsidian version
+# -> The CLI is unable to find Obsidian. Please make sure Obsidian is running and try again.
+```
 
 ## 사용 예시
 
@@ -57,10 +89,11 @@
 
 - `hooks.json`은 CLI readiness, safe write, post-write verification, destructive command protection용 starter guardrail을 정의한다
 
-## 로컬 Runner
+## 실행 모델
 
-- `scripts/obsidian-cli-runner.sh`는 번들된 CLI 워크플로를 감싸는 작은 실행 래퍼다
-- 직접적인 CLI나 runner 명령은 구현 세부사항이고, 최종 사용자는 자연어 요청으로 쓰는 것을 기준으로 한다
+- 플러그인 전용 shell runner 대신 공식 `obsidian` CLI를 직접 사용한다
+- 명령 선택 규칙은 skills, agents, docs에 두어 upstream CLI 변화에 더 쉽게 대응한다
+- 최종 사용자는 여전히 자연어 요청으로 사용하지만, 내부 실행 표면은 raw CLI다
 
 ## 에셋
 

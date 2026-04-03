@@ -4,8 +4,7 @@
       "description": "Verify the Obsidian CLI is available and the target vault can be resolved before any workflow runs.",
       "checks": [
         "run `obsidian version` before workflow execution",
-        "retry once if the first readiness check fails because Obsidian may still be launching",
-        "if the second check fails, instruct the user to open Obsidian and verify CLI registration",
+        "if the readiness check fails, instruct the user to open Obsidian and verify CLI registration before retrying",
         "require explicit `vault=<name>` or `vault=<id>` when the current working directory is not an Obsidian vault"
       ]
     },

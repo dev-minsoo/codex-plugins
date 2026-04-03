@@ -8,7 +8,8 @@ Reference:
 ## Execution Policy
 
 - prefer the official `obsidian` CLI as the only execution backend
-- assume the first CLI command may launch the Obsidian app if it is not already running
+- do not introduce a plugin-specific shell runner unless the upstream CLI leaves a proven gap
+- treat a running Obsidian app as a prerequisite in this environment
 - detect CLI availability before workflow execution
 - fail with a clear user-facing message when the CLI is missing, launch fails, or the target vault cannot be resolved
 
@@ -22,8 +23,9 @@ obsidian version
 
 If that fails:
 
-1. retry once after a short delay
-2. if Obsidian still does not respond, instruct the user to open Obsidian and verify CLI registration
+1. instruct the user to open Obsidian
+2. verify that CLI registration is still enabled
+3. retry only after the app is confirmed to be running
 
 ## Vault Targeting
 
@@ -141,7 +143,7 @@ obsidian diff path="<path>.md" from=1
 - CLI not installed or not registered
   - instruct the user to enable and register Obsidian CLI from Obsidian settings
 - app launch failed
-  - ask the user to open Obsidian manually and retry
+  - ask the user to open Obsidian manually and retry after the app is visibly running
 - vault resolution failed
   - require `vault=<name>` or `vault=<id>` explicitly
 - note resolution ambiguous
