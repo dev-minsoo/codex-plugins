@@ -51,14 +51,13 @@ When preflight (`obsidian version`) fails, use this quick triage before running 
 
 1. classify the failure as one of:
    - `app_not_running`
-   - `vault_resolution_failed`
    - `cli_registration_missing`
 2. provide the matching recovery guidance:
    - `app_not_running`: ask the user to open Obsidian and wait for vault load/indexing
-   - `vault_resolution_failed`: require explicit `vault=<name>` or `vault=<id>`
    - `cli_registration_missing`: ask the user to re-enable/register CLI in Obsidian settings and verify shell path
-3. run one guided retry only
-4. if the retry fails, stop automation and request explicit user direction
+3. treat `vault_resolution_failed` as command-targeting validation (not a preflight failure): require explicit `vault=<name>` or `vault=<id>` when cwd is not a vault
+4. run one guided retry only
+5. if the retry fails, stop automation and request explicit user direction
 
 ## Verified CLI Examples
 

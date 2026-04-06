@@ -33,8 +33,9 @@ If that fails:
 | failure reason | signal | guided recovery |
 | --- | --- | --- |
 | `app_not_running` | `obsidian version` cannot find app instance | open Obsidian manually, wait for vault to appear, retry once |
-| `vault_resolution_failed` | command requires vault but cwd is not a vault root | pass `vault=<name>` or `vault=<id>` explicitly, retry once |
 | `cli_registration_missing` | binary missing or CLI registration disabled | re-enable/register Obsidian CLI in app settings, verify shell path, retry once |
+
+`vault_resolution_failed` is not a readiness (`obsidian version`) failure mode. Treat it as a command-targeting issue when a workflow command needs an explicit `vault=<name>` or `vault=<id>`.
 
 ### Guided Retry Policy
 

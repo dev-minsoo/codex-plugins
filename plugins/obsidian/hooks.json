@@ -1,19 +1,17 @@
 {
   "hooks": {
     "preflight": {
-      "description": "Verify the Obsidian CLI is available and the target vault can be resolved before any workflow runs.",
+      "description": "Verify the Obsidian CLI is available and app-level readiness checks pass before any workflow runs.",
       "failure_reasons": {
         "app_not_running": "The Obsidian app is not running, so CLI handshake cannot complete.",
-        "vault_resolution_failed": "The target vault was not resolved from cwd and no explicit vault parameter was supplied.",
         "cli_registration_missing": "Obsidian CLI is not installed or no longer registered in the app settings."
       },
       "checks": [
         "run `obsidian version` before workflow execution",
-        "if the readiness check fails, classify it into `app_not_running`, `vault_resolution_failed`, or `cli_registration_missing` before suggesting recovery",
+        "if the readiness check fails, classify it into `app_not_running` or `cli_registration_missing` before suggesting recovery",
         "for `app_not_running`, instruct the user to open Obsidian, wait for vault indexing, then retry once",
-        "for `vault_resolution_failed`, require explicit `vault=<name>` or `vault=<id>` and retry once",
         "for `cli_registration_missing`, instruct the user to verify Obsidian CLI registration and path visibility before retrying",
-        "require explicit `vault=<name>` or `vault=<id>` when the current working directory is not an Obsidian vault"
+        "treat vault targeting as command validation: require explicit `vault=<name>` or `vault=<id>` when the current working directory is not an Obsidian vault"
       ],
       "retry_policy": {
         "max_guided_retries": 1,
