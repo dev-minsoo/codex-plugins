@@ -23,9 +23,25 @@ obsidian version
 
 If that fails:
 
-1. instruct the user to open Obsidian
-2. verify that CLI registration is still enabled
-3. retry only after the app is confirmed to be running
+1. classify the failure reason
+2. present reason-specific recovery guidance
+3. perform one guided retry
+4. stop and ask for explicit user direction if the retry fails
+
+### Readiness Failure Triage
+
+| failure reason | signal | guided recovery |
+| --- | --- | --- |
+| `app_not_running` | `obsidian version` cannot find app instance | open Obsidian manually, wait for vault to appear, retry once |
+| `cli_registration_missing` | binary missing or CLI registration disabled | re-enable/register Obsidian CLI in app settings, verify shell path, retry once |
+
+`vault_resolution_failed` is not a readiness (`obsidian version`) failure mode. Treat it as a command-targeting issue when a workflow command needs an explicit `vault=<name>` or `vault=<id>`.
+
+### Guided Retry Policy
+
+- keep retries deterministic and limited to one guided retry per failed preflight
+- include the detected failure reason in the user-facing message
+- if the guided retry fails, stop autonomous execution and request explicit user input
 
 ## Vault Targeting
 
