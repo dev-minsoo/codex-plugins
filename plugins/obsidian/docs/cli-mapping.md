@@ -27,6 +27,22 @@ If that fails:
 2. verify that CLI registration is still enabled
 3. retry only after the app is confirmed to be running
 
+### Readiness Failure Triage
+
+Classify readiness failures before recovery guidance:
+
+| Failure class | Typical signal | Required recovery |
+| --- | --- | --- |
+| `app_not_running` | `The CLI is unable to find Obsidian` | Open the Obsidian desktop app, then retry `obsidian version` once. |
+| `vault_resolution_failed` | vault not found / vault cannot be resolved | Re-run command with explicit `vault=<name>` or `vault=<id>`. |
+| `cli_registration_missing` | command not registered / CLI disabled | Re-enable CLI registration in Obsidian settings, then rerun preflight. |
+
+Retry policy:
+
+1. perform exactly one guided retry after the corresponding recovery step
+2. if retry still fails, stop execution and return the failure class plus next manual action
+3. do not continue with write operations until preflight succeeds
+
 ## Vault Targeting
 
 - if the current working directory is an Obsidian vault, use it by default
@@ -150,3 +166,5 @@ obsidian diff path="<path>.md" from=1
   - switch from `file=<name>` to exact `path=<path>`
 - property update failed
   - fall back to frontmatter embedded in note content
+
+Use the triage classes from `Readiness Failure Triage` (`app_not_running`, `vault_resolution_failed`, `cli_registration_missing`) in user-facing error responses.

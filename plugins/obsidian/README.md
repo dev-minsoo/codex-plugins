@@ -42,6 +42,16 @@ This is a starter bundle. It keeps the main value in prompts, skills, and policy
 - after a full app quit, `obsidian version` and `obsidian create` both failed until the app was opened again
 - workflows should check CLI availability and provide a clear fallback when launch fails
 
+### Readiness Recovery Playbook
+
+When preflight fails, classify and recover in this order:
+
+1. `app_not_running`: open Obsidian, then retry `obsidian version` once
+2. `vault_resolution_failed`: rerun with explicit `vault=<name>` or `vault=<id>`
+3. `cli_registration_missing`: re-enable CLI registration in Obsidian settings, then rerun preflight
+
+If a guided retry still fails, stop the workflow and return the failure class plus the next manual action.
+
 Official docs:
 - https://obsidian.md/help/cli
 
